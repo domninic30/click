@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposal</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("1.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  #proposal-container {
+    text-align: center;
+    animation: fadeInUp 1s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 48px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  button {
+    margin: 0 10px;
+    padding: 15px 30px;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .yes-btn {
+    background-color: #4CAF50;
+    color: white;
+    animation: heartbeat 1.5s infinite;
+  }
+
+  .yes-btn:hover {
+    background-color: #45a049;
+  }
+
+  .no-btn {
+    background-color: #ff0066;
+    color: white;
+  }
+
+  .no-btn:hover {
+    background-color: #cc0052;
+  }
+
+  .rejected {
+    transform: scale(1.1);
+  }
+
+  @keyframes heartbeat {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.1);
+    }
+  }
+
+  .broken-heart {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: breakHeart 0.5s ease forwards;
+  }
+
+  @keyframes breakHeart {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) rotate(-20deg) scale(1.2);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    }
+  }
+
+  .emoji {
+    position: absolute;
+    font-size: 24px;
+    animation: emojiAnimation 5s linear infinite;
+  }
+
+  @keyframes emojiAnimation {
+    0% {
+      transform: translate(-100vw, -100vh);
+    }
+    100% {
+      transform: translate(100vw, 100vh);
+    }
+  }
+
+ 
+  @keyframes slideIn {
+    from {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="proposal-container">
+  <h1 id="proposal-question">Please click the green btutton below to see if it is working</h1>
+  <div class="btn-container" id="btn-container">
+    <button class="yes-btn" onclick="showYesResponse()">Click here</button>
+
+  </div>
+</div>
+
+<script>
+  let rejectedCount = 0;
+
+  function showYesResponse() {
+    document.getElementById('proposal-question').innerText = "Sorry medyo di ganun kalakas ang loob ko kaya dito ko nalang idadaan. Okay lang ba kung ligawan na kita?";
+    createEmojis();
+    revealSecretEmoji();
+  }
+
+  function showNoResponse() {
+    rejectedCount++;
+    const yesBtn = document.querySelector('.yes-btn');
+    yesBtn.classList.add('rejected');
+    setTimeout(() => {
+      yesBtn.classList.remove('rejected');
+    }, 500);
+    increaseSize();
+    if (rejectedCount <= 15) {
+      document.getElementById('proposal-question').innerText = getProposalMessage(rejectedCount);
+    } else {
+      document.getElementById('proposal-question').innerText = "I will keep asking until you say yes! Just kidding :)";
+    }
+    showBrokenHeart();
+  }
+
+  function increaseSize() {
+    const yesBtn = document.querySelector('.yes-btn');
+    yesBtn.style.transform = 'scale(1.1)';
+    setTimeout(() => {
+      yesBtn.style.transform = 'scale(1)';
+    }, 500);
+  }
+
+  function getProposalMessage(count) {
+    switch (count) {
+      case 1: return "";
+      case 2: return "";
+      case 3: return "";
+      case 4: return "";
+      case 5: return "";
+      case 6: return "";
+      case 7: return "";
+      case 8: return ":*(";
+      case 9: return "";
+      case 10: return "";
+      case 11: return "";
+      case 12: return "";
+      case 13: return "";
+      case 14: return "";
+      case 15: return "";
+      default: return "";
+    }
+  }
+
+  function showBrokenHeart() {
+    const brokenHeart = document.createElement('img');
+    brokenHeart.src = 'https://media.tenor.com/YIPUfKLBVOkAAAAi/broken-heart.gif';
+    brokenHeart.classList.add('broken-heart');
+    document.body.appendChild(brokenHeart);
+    setTimeout(() => {
+      brokenHeart.remove();
+    }, 1000);
+  }
+
+  function createEmojis() {
+    const emojis = ["😘", "😍", "❤️", "💖", "💍"];
+    const screenHeight = window.innerHeight;
+    const screenWidth = window.innerWidth;
+    const emojiCount = 20;
+
+    for (let i = 0; i < emojiCount; i++) {
+      const emoji = document.createElement('div');
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.classList.add('emoji');
+      emoji.style.top = `${Math.random() * screenHeight}px`;
+      emoji.style.left = `${Math.random() * screenWidth}px`;
+      document.body.appendChild(emoji);
+    }
+  }
+
+  function revealSecretEmoji() {
+    const secretNumber = document.createElement('div');
+ 
+    secretNumber.classList.add('secret-emoji');
+    document.body.appendChild(secretNumber);
+  }
+</script>
+
+</body>
+</html>
